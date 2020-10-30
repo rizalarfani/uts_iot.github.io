@@ -54,18 +54,18 @@
         <div class="row">
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <i class="glyphicon glyphicon-map-marker"></i>
-            <h3>STRATEGIC</h3>
-            <p class="text-center">.</p>
+            <h3>LPG GAS</h3>
+            <h4 class="text-center" id="lpg_gas"></h4>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <i class="glyphicon glyphicon-tree-conifer"></i>
-            <h3>CLIMATE</h3>
-            <p class="text-justify">.</p>
+            <h3>CO GAS</h3>
+            <h4 class="text-center" id="co_gas"></h4>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <i class="glyphicon glyphicon-camera"></i>
-            <h3>EXOTIC</h3>
-            <p class="text-justify">.</p>
+            <h3>SMOKE GAS</h3>
+            <h4 class="text-center" id="smoke_gas"></h4>
           </div>
         </div>
       </div>
@@ -88,16 +88,61 @@
       </div>
     </div>
   </div>
-  <!-- container bawah -->
-  <!-- kaki -->
   <div id="kaki" class="mb-5">
     <div class="container">
       <h5 class="text-center">DIII Teknik Komputer. © 2020</h5>
     </div>
   </div>
-  <!-- kaki -->
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+      $(document).ready(function() {
+        get_lpg_gas();
+        get_co_gas();
+        get_smoke_gas();
+
+        function get_smoke_gas()
+        {
+          setInterval(function() {
+            $.ajax({
+              type: "GET",
+              dataType: "JSON",
+              url: "https://api.thingspeak.com/channels/1211871/fields/3.json?results=1",
+              success: function(respon){
+                $('#smoke_gas').text(respon.feeds[0].field3);
+              }
+            });
+          },1000);
+        }
+
+        function get_co_gas()
+        {
+          setInterval(function() {
+            $.ajax({
+              type: "GET",
+              dataType: "JSON",
+              url: "https://api.thingspeak.com/channels/1211871/fields/2.json?results=1",
+              success: function(respon){
+                $('#co_gas').text(respon.feeds[0].field2);
+              }
+            });
+          },1000);
+        }
+
+        function get_lpg_gas(){
+          setInterval(function() {
+            $.ajax({
+              type: "GET",
+              dataType: "JSON",
+              url: "https://api.thingspeak.com/channels/1211871/fields/1.json?results=1",
+              success: function(respon){
+                $('#lpg_gas').text(respon.feeds[0].field1);
+              }
+            });
+          },1000);
+        }
+      });
+  </script>
 </body>
 
 </html>
