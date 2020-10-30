@@ -193,6 +193,7 @@ i.glyphicon.glyphicon-search {
 }
 
 #kaki {
-  color: rgb(40, 78, 94);
+  padding: 10px;
+  color: white;
   background-color: #0f1517;
 }
